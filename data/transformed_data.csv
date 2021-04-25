@@ -1,0 +1,8 @@
+,Age,Salary,Gender,Country,Purchased
+0,18,20000,Male,Germany,N
+1,19,22000,Female,France,N
+2,20,24000,Female,England,N
+3,22,50000,Male,France,Y
+4,23,35000,Female,England,N
+5,25,32000,Female,France,Y
+6,27,37000,Female,France,N
