@@ -1,16 +1,17 @@
 import logging
+import logging.config
 
-
-class Store():
-    logging.config.fileConfig("conf/logging.conf")
+class Store:
+    logging.config.fileConfig("../conf/logging.conf")
 
     def __init__(self, spark):
         self.spark = spark
 
     def store(self,df):
-        logging.info("Start - Storing Data")
+        logger = logging.getLogger("Store")
+        logger.info("Store Dataframe output")
         # df.coalesce(1)\
         #     .write\
         #     .option("header", "true")\
         #     .csv("data/out.csv")
-        logging.info("ENd - Storing Data")
+        logger.info("ENd - Storing Data")

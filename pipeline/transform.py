@@ -1,15 +1,17 @@
 import logging
+import logging.config
 
 
-class Transform():
-    logging.config.fileConfig("conf/logging.conf")
+class Transform:
+    logging.config.fileConfig("../conf/logging.conf")
 
     def __init__(self, spark):
         self.spark = spark
 
     def transform(self,df):
-        logging.info("Start - Transform Data")
+        logger = logging.getLogger("Transform")
+        logger.info("Processing Data...")
         df = df.na.drop()
         df.show()
-        logging.info("End - Processing Data")
+        logger.info("End - Processing Data")
         return df

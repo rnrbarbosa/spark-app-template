@@ -7,6 +7,8 @@ import logging.config
 
 
 class Pipeline:
+    logging.config.fileConfig("conf/logging.conf")
+
     def __init__(self):
         self.spark = SparkSession\
             .builder\
@@ -15,7 +17,9 @@ class Pipeline:
             .getOrCreate()
 
     def pipeline(self):
-        print("Running Pipeline....")
+        logging.info("Starting APPLICATION....")
+        logging.info("Running Pipeline....")
+
         ingest_step = Ingest(self.spark)
         df = ingest_step.ingest()
         transform_step = Transform(self.spark)
@@ -26,13 +30,6 @@ class Pipeline:
 
 
 if __name__ == '__main__':
-
-    logging.config.fileConfig("conf/logging.conf")
-    logging.info("Starting APPLICATION....")
-    logging.debug("debug Logging")
-    logging.info("Info Logging")
-    logging.warning("Warning Logging")
-    logging.error("Error Logging")
 
     pipeline = Pipeline()
     pipeline.pipeline()
