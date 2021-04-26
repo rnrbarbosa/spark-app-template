@@ -1,7 +1,4 @@
-from pipeline.ingest import Ingest
-from pipeline.store import Store
-from pipeline.transform import Transform
-from pyspark.sql import SparkSession
+import configparser
 import logging
 import logging.config
 import sys
@@ -19,6 +16,9 @@ class Pipeline:
             .appName("Data Pipeline")\
             .enableHiveSupport()\
             .getOrCreate()
+        self.config = configparser.ConfigParser()
+        self.config.read("conf/pipeline.conf")
+        print(self.config.get('DEFAULT','PIPELINE_HOME'))
 
     def pipeline(self):
         # try
