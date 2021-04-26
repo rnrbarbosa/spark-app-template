@@ -4,7 +4,7 @@ from pipeline.transform import Transform
 from pyspark.sql import SparkSession
 import logging
 import logging.config
-
+import sys
 
 class Pipeline:
     logging.config.fileConfig("conf/logging.conf")
@@ -17,15 +17,20 @@ class Pipeline:
             .getOrCreate()
 
     def pipeline(self):
-        logging.info("Starting APPLICATION....")
-        logging.info("Running Pipeline....")
+        try:
+            logging.info("Starting APPLICATION....")
+            logging.info("Running Pipeline....")
 
-        ingest_step = Ingest(self.spark)
-        df = ingest_step.ingest()
-        transform_step = Transform(self.spark)
-        df = transform_step.transform(df)
-        store_step = Store(self.spark)
-        store_step.store(df)
+            ingest_step = Ingest(self.spark)
+            df = ingest_step.ingest()
+            transform_step = Transform(self.spark)
+            df = transform_step.transform(df)
+            store_step = Store(self.spark)
+            store_step.store(df)
+        except Exception as exp:
+            logging.error("Error")
+        sys.exit(1)
+        return
 
 
 

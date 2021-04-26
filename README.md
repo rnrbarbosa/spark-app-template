@@ -16,12 +16,13 @@ This is a template to build a Spark Application which includes:
         * To Hive
         * To HDFS
         * To Kafka
-    * Logging 
+    * Logging and Error Handling
         * Custom Logger per Class
-    * Error Handling
+        * Error Handling
     * Configuration
         * Reading from property file
     * Testing
         * Unit Testing
+        * Data Validation
     * Deployment
         * Start Up Pipeline
