@@ -6,6 +6,10 @@ import logging
 import logging.config
 import sys
 
+from pipeline import ingest, transform, store
+from pyspark.sql import SparkSession
+
+
 class Pipeline:
     logging.config.fileConfig("conf/logging.conf")
 
@@ -17,20 +21,28 @@ class Pipeline:
             .getOrCreate()
 
     def pipeline(self):
-        try:
+        # try
             logging.info("Starting APPLICATION....")
             logging.info("Running Pipeline....")
-
-            ingest_step = Ingest(self.spark)
+            #########################################
+            # INGESTION STEP
+            #########################################
+            ingest_step = ingest.Ingest(self.spark)
             df = ingest_step.ingest()
-            transform_step = Transform(self.spark)
+            #########################################
+            # TRANSFORM / PROCESSING STEP
+            #########################################
+            transform_step = transform.Transform(self.spark)
             df = transform_step.transform(df)
-            store_step = Store(self.spark)
+            #########################################
+            # STORE /SERVING STEP
+            #########################################
+            store_step = store.Store(self.spark)
             store_step.store(df)
-        except Exception as exp:
-            logging.error("Error")
-        sys.exit(1)
-        return
+        # except Exception as exp:
+        #     logging.error("Error")
+        # sys.exit(1)
+            return
 
 
 

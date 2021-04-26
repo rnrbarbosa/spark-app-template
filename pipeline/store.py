@@ -3,7 +3,7 @@ import logging.config
 import sys
 
 class Store:
-    logging.config.fileConfig("../conf/logging.conf")
+    logging.config.fileConfig("conf/logging.conf")
 
     def __init__(self, spark):
         self.spark = spark
