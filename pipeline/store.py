@@ -1,9 +1,16 @@
+import logging
+
+
 class Store():
+    logging.config.fileConfig("conf/logging.conf")
 
     def __init__(self, spark):
         self.spark = spark
 
     def store(self,df):
-        print("Storing Data")
-        df.show(1)
-        df.toPandas().to_csv("data/transformed_data.csv")
+        logging.info("Start - Storing Data")
+        # df.coalesce(1)\
+        #     .write\
+        #     .option("header", "true")\
+        #     .csv("data/out.csv")
+        logging.info("ENd - Storing Data")
